@@ -26,14 +26,18 @@ public class Jogador extends JFrame {
         mainPanel.add(infoPanel, BorderLayout.CENTER);
 
         // Adição das informações do jogador
-        infoPanel.add(new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 40px'>Player Info</h1></html>"));
-        infoPanel.add(Box.createRigidArea(new Dimension(0, 15))); // Espaçamento
+        JLabel titleLabel = new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 40px'>Player Info</h1></html>");
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinhamento à esquerda
+        infoPanel.add(titleLabel);
 
-        infoPanel.add(new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 30px'>J. Grealish</h1></html>"));
-        infoPanel.add(Box.createRigidArea(new Dimension(0, 0))); // Espaçamento
-
-        infoPanel.add(new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 30px'>Over: 84</h1></html>"));
-        infoPanel.add(Box.createRigidArea(new Dimension(0, 0))); // Espaçamento
+        JPanel nameAndOverPanel = new JPanel();
+        nameAndOverPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Alinhamento à esquerda
+        nameAndOverPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel nameLabel = new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 30px'>J. Grealish</h1></html>");
+        JLabel overLabel = new JLabel("<html><h1 style='font-family: Mont Serrat Medium; font-size: 30px; margin-left: 10px'>84</h1></html>");
+        nameAndOverPanel.add(nameLabel);
+        nameAndOverPanel.add(overLabel);
+        infoPanel.add(nameAndOverPanel);
 
         infoPanel.add(createInfoLabel("Idade: ", "20"));
         infoPanel.add(createInfoLabel("Nacionalidade: ", "Inglaterra"));
@@ -44,8 +48,9 @@ public class Jogador extends JFrame {
 
         // Criação e adição do painel de botões
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0)); // Espaçamento superior
+        buttonPanel.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinhamento à esquerda
         infoPanel.add(buttonPanel);
 
         // Adição dos botões
@@ -59,6 +64,7 @@ public class Jogador extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(new JLabel(label), BorderLayout.WEST);
         panel.add(new JLabel(value), BorderLayout.CENTER);
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinhamento à esquerda
         return panel;
     }
 
