@@ -13,13 +13,13 @@ public class Principal {
 
         // Painel para o título com margens
         JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10)); // Adiciona margens ao redor do título
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10)); // Ajusta margens ao redor do título
         titlePanel.setBackground(new Color(50, 50, 50)); // Cor de fundo do painel de título
 
         // Carrega a imagem do ícone
         ImageIcon icon = new ImageIcon("bola.png"); // Certifique-se de que o arquivo bola.png está no diretório do projeto
         Image img = icon.getImage();
-        Image scaledImg = img.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
 
         // Título com ícone
@@ -51,6 +51,9 @@ public class Principal {
         JComboBox<String> criarComboBox = new JComboBox<>(criarOptions);
         criarComboBox.setFont(new Font("Montserrat", Font.PLAIN, 18));
         criarComboBox.setPreferredSize(new Dimension(200, 30));
+        criarComboBox.setBackground(new Color(220, 220, 220));
+        criarComboBox.setForeground(new Color(50, 50, 50));
+        criarComboBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         gbc.gridx = 1;
         gbc.gridy = 0;
         mainPanel.add(criarComboBox, gbc);
@@ -68,6 +71,9 @@ public class Principal {
         JComboBox<String> editarComboBox = new JComboBox<>(editarOptions);
         editarComboBox.setFont(new Font("Montserrat", Font.PLAIN, 18));
         editarComboBox.setPreferredSize(new Dimension(200, 30));
+        editarComboBox.setBackground(new Color(220, 220, 220));
+        editarComboBox.setForeground(new Color(50, 50, 50));
+        editarComboBox.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         gbc.gridx = 1;
         gbc.gridy = 1;
         mainPanel.add(editarComboBox, gbc);
