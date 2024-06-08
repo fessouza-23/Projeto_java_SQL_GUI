@@ -8,24 +8,24 @@ public class Principal {
         // Cria o frame principal
         JFrame frame = new JFrame("CRUDBALL");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 460);
+        frame.setSize(945, 730);
         frame.setLayout(new BorderLayout());
 
         // Painel para o título com margens
         JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 10)); // Ajusta margens ao redor do título
-        titlePanel.setBackground(new Color(50, 50, 50)); // Cor de fundo do painel de título
+        titlePanel.setBackground(new Color(255,255,255,255)); // Cor de fundo do painel de título
 
         // Carrega a imagem do ícone
-        ImageIcon icon = new ImageIcon("bola.png"); // Certifique-se de que o arquivo bola.png está no diretório do projeto
+        ImageIcon icon = new ImageIcon("bola.jpg"); // Certifique-se de que o arquivo bola.png está no diretório do projeto
         Image img = icon.getImage();
-        Image scaledImg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        Image scaledImg = img.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
 
         // Título com ícone
         JLabel titleLabel = new JLabel("CRUDBALL", scaledIcon, SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Montserrat", Font.BOLD, 35));
-        titleLabel.setForeground(Color.WHITE); // Cor do texto do título
+        titleLabel.setFont(new Font("Montserrat Black", Font.BOLD, 88));
+        titleLabel.setForeground(new Color(35, 31, 32, 255));
         titleLabel.setHorizontalTextPosition(SwingConstants.CENTER); // Centraliza o texto horizontalmente
         titleLabel.setVerticalTextPosition(SwingConstants.BOTTOM); // Posiciona o texto abaixo do ícone
         titlePanel.add(titleLabel, BorderLayout.CENTER); // Adiciona o rótulo ao painel de título
@@ -33,13 +33,13 @@ public class Principal {
 
         // Painel principal para organizar os componentes
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBackground(new Color(70, 70, 70)); // Cor de fundo do painel principal
+        mainPanel.setBackground(new Color(35,31,32,255)); // Cor de fundo do painel principal
         GridBagConstraints gbc = new GridBagConstraints();
         frame.add(mainPanel, BorderLayout.CENTER);
 
         // Seção Inserir
         JLabel inserirLabel = new JLabel("Incluir:");
-        inserirLabel.setFont(new Font("Montserrat", Font.PLAIN, 22));
+        inserirLabel.setFont(new Font("Montserrat", Font.PLAIN, 25));
         inserirLabel.setForeground(Color.WHITE); // Cor do texto da seção Inserir
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -60,7 +60,7 @@ public class Principal {
 
         // Seção Editar
         JLabel editarLabel = new JLabel("Editar ou remover:");
-        editarLabel.setFont(new Font("Montserrat", Font.PLAIN, 22));
+        editarLabel.setFont(new Font("Montserrat", Font.PLAIN, 25));
         editarLabel.setForeground(Color.WHITE); // Cor do texto da seção Editar
         gbc.gridx = 0;
         gbc.gridy = 1;
