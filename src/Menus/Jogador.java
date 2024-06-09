@@ -1,3 +1,5 @@
+package Menus;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,7 @@ public class Jogador extends JFrame {
         add(mainPanel);
 
         // Criação e adição da imagem do jogador
-        ImageIcon playerIcon = new ImageIcon("jogador1.png"); // Substitua pelo caminho da sua imagem
+        ImageIcon playerIcon = new ImageIcon("src/Imagens/Jogadores/jogador1.png"); // Substitua pelo caminho da sua imagem
         JLabel playerLabel = new JLabel(playerIcon);
         mainPanel.add(playerLabel, BorderLayout.WEST);
 
@@ -56,6 +58,9 @@ public class Jogador extends JFrame {
         // Adição dos botões
         JButton editButton = createStyledButton("Editar", new Color(255, 223, 0), new Color(0, 0, 0));
         JButton deleteButton = createStyledButton("Excluir", new Color(255, 204, 204), new Color(0, 0, 0));
+
+        // Adiciona ação ao botão "Editar"
+        editButton.addActionListener(e -> new EditarJogador());
 
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);
