@@ -16,7 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A classe PlayerSelection é uma interface gráfica que permite a seleção, visualização,
+ * inserção, atualização e deleção de jogadores de um time específico.
+ */
 public class PlayerSelection extends JFrame {
     private JComboBox<ComboBoxItem> playerSelectionBox;
     private JButton backButton, insertButton, updateButton, deleteButton, selectButton;
@@ -28,6 +31,11 @@ public class PlayerSelection extends JFrame {
     private static final String PLAYER_IMAGE_DIR = BASE_DIR + File.separator + "res" + File.separator + "Players" + File.separator;
     private static final int IMAGE_SIZE = 100;
 
+    /**
+     * Construtor da classe PlayerSelection.
+     *
+     * @param selectedTeamId o ID do time selecionado
+     */
     public PlayerSelection(int selectedTeamId) {
         this.selectedTeamId = selectedTeamId;
 
@@ -49,6 +57,9 @@ public class PlayerSelection extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Inicializa os botões e define seus eventos de clique.
+     */
     private void initButtons() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         backButton = new JButton("Back");
@@ -72,6 +83,9 @@ public class PlayerSelection extends JFrame {
         add(buttonPanel, BorderLayout.NORTH);
     }
 
+    /**
+     * Inicializa o painel do logotipo do time.
+     */
     private void initTeamLogoPanel() {
         teamLogoPanel = new JPanel(new BorderLayout());
         teamLogoLabel = new JLabel();
@@ -80,6 +94,9 @@ public class PlayerSelection extends JFrame {
         add(teamLogoPanel, BorderLayout.WEST);
     }
 
+    /**
+     * Inicializa o painel de informações do jogador.
+     */
     private void initPlayerInfoPanel() {
         playerInfoPanel = new JPanel(new BorderLayout());
 
@@ -103,6 +120,9 @@ public class PlayerSelection extends JFrame {
         add(playerInfoPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Inicializa a caixa de seleção de jogadores.
+     */
     private void initPlayerSelectionBox() {
         JPanel playerSelectionPanel = new JPanel(new BorderLayout());
         playerSelectionBox = new JComboBox<>();
@@ -115,6 +135,9 @@ public class PlayerSelection extends JFrame {
         add(playerSelectionPanel, BorderLayout.EAST);
     }
 
+    /**
+     * Carrega o logotipo do time.
+     */
     private void loadTeamLogo() {
         try {
             Connection con = DatabaseConfiguration.getConnection();
@@ -137,6 +160,9 @@ public class PlayerSelection extends JFrame {
         }
     }
 
+    /**
+     * Popula a caixa de seleção de jogadores com os jogadores do time selecionado.
+     */
     private void populatePlayerSelectionBox() {
         playerSelectionBox.removeAllItems();
         playerIds = new ArrayList<>();
@@ -162,6 +188,11 @@ public class PlayerSelection extends JFrame {
         }
     }
 
+    /**
+     * Carrega as informações do jogador selecionado.
+     *
+     * @param playerId o ID do jogador selecionado
+     */
     private void loadPlayerInfo(int playerId) {
         try {
             Connection con = DatabaseConfiguration.getConnection();
@@ -200,25 +231,40 @@ public class PlayerSelection extends JFrame {
         }
     }
 
+    /**
+     * Manipula o evento de clique do botão "Back".
+     */
     private void handleBack() {
         dispose();
     }
 
+    /**
+     * Manipula o evento de clique do botão "Insert".
+     */
     private void handleInsert() {
         new InsertForm<>(Players.class);
         populatePlayerSelectionBox();
     }
 
+    /**
+     * Manipula o evento de clique do botão "Update".
+     */
     private void handleUpdate() {
         new UpdateForm<>(Players.class);
         populatePlayerSelectionBox();
     }
 
+    /**
+     * Manipula o evento de clique do botão "Delete".
+     */
     private void handleDelete() {
         new DeleteForm<>(Players.class);
         populatePlayerSelectionBox();
     }
 
+    /**
+     * Manipula o evento de clique do botão "Select".
+     */
     private void handleSelect() {
         ComboBoxItem selectedItem = (ComboBoxItem) playerSelectionBox.getSelectedItem();
         if (selectedItem != null) {
@@ -227,19 +273,38 @@ public class PlayerSelection extends JFrame {
         }
     }
 
+    /**
+     * Classe interna para representar os itens do comboBox.
+     */
     private static class ComboBoxItem {
         private final int id;
         private final String name;
 
+        /**
+         * Construtor da classe ComboBoxItem.
+         *
+         * @param id o ID do item
+         * @param name o nome do item
+         */
         public ComboBoxItem(int id, String name) {
             this.id = id;
             this.name = name;
         }
 
+        /**
+         * Obtém o ID do item.
+         *
+         * @return o ID do item
+         */
         public int getId() {
             return id;
         }
 
+        /**
+         * Obtém o nome do item.
+         *
+         * @return o nome do item
+         */
         public String getName() {
             return name;
         }

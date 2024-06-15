@@ -4,6 +4,11 @@ import service.DatabaseConfiguration;
 
 import java.sql.*;
 
+/**
+ * A classe Teams representa um time com atributos como id, nome, imagem e liga (chave estrangeira).
+ * Esta classe fornece métodos para inserir, atualizar, deletar e imprimir todos os times
+ * armazenados no banco de dados.
+ */
 public class Teams {
     private int id;
     private String name;
@@ -12,18 +17,29 @@ public class Teams {
 
     Connection con = DatabaseConfiguration.getConnection();
 
+    /**
+     * Construtor padrão da classe Teams.
+     */
     public Teams() {}
 
+    /**
+     * Construtor da classe Teams com parâmetros.
+     *
+     * @param name o nome do time
+     * @param img o caminho da imagem do time
+     */
     public Teams(String name, String img) {
         this.name = name;
         this.img = img;
     }
 
+    // Métodos getter e setter para os atributos do time
+
     public int getId() {
         return id;
     }
 
-    public void setId() {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,7 +47,7 @@ public class Teams {
         return name;
     }
 
-    public void setNome() {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -39,7 +55,7 @@ public class Teams {
         return img;
     }
 
-    public void setImg() {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -51,6 +67,11 @@ public class Teams {
         this.leagueFK = leagueFK;
     }
 
+    /**
+     * Insere um novo time no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void insert() throws SQLException {
         String sql = "INSERT INTO Teams (name, img, leagueFK) VALUES (?, ?, ?)";
 
@@ -75,6 +96,11 @@ public class Teams {
         }
     }
 
+    /**
+     * Atualiza um time existente no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void update() throws SQLException {
         String sql = "UPDATE Teams SET name = ?, img = ?, leagueFK = ? WHERE id = ?";
 
@@ -96,18 +122,22 @@ public class Teams {
         }
     }
 
+    /**
+     * Deleta um time do banco de dados pelo nome.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void delete() throws SQLException {
-        String sql = "DELETE FROM Teams WHERE name = ?";
+        String sql = "DELETE FROM Teams WHERE id = ?";
 
         try (PreparedStatement statement = con.prepareStatement(sql)) {
-            statement.setString(1, this.name);
             statement.setInt(1, this.id);
 
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 System.out.println("Team deleted successfully.");
             } else {
-                System.out.println("No Team found with the name: " + name);
+                System.out.println("No Team found with ID: " + id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,11 +145,16 @@ public class Teams {
         }
     }
 
+    /**
+     * Imprime todos os times armazenados no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public static void printAll() throws SQLException {
         Connection con = DatabaseConfiguration.getConnection();
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM Teams";
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Teams");
+        ResultSet rs = stmt.executeQuery(sql);
 
         System.out.println("ID\tName\tImg\tLeagueFK");
 

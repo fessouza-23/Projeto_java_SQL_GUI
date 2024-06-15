@@ -4,6 +4,11 @@ import service.DatabaseConfiguration;
 
 import java.sql.*;
 
+/**
+ * A classe Players representa um jogador com atributos como id, nome, imagem, data de nascimento, altura, posição, país e time (chave estrangeira).
+ * Esta classe fornece métodos para inserir, atualizar, deletar e imprimir todos os jogadores
+ * armazenados no banco de dados.
+ */
 public class Players {
     private int id;
     private String name;
@@ -16,8 +21,21 @@ public class Players {
 
     Connection con = DatabaseConfiguration.getConnection();
 
+    /**
+     * Construtor padrão da classe Players.
+     */
     public Players() {}
 
+    /**
+     * Construtor da classe Players com parâmetros.
+     *
+     * @param name o nome do jogador
+     * @param img o caminho da imagem do jogador
+     * @param dateBirth a data de nascimento do jogador
+     * @param height a altura do jogador
+     * @param position a posição do jogador
+     * @param country o país do jogador
+     */
     public Players(String name, String img, Date dateBirth, String height, String position, String country) {
         this.name = name;
         this.img = img;
@@ -26,6 +44,8 @@ public class Players {
         this.position = position;
         this.country = country;
     }
+
+    // Métodos getter e setter para os atributos do jogador
 
     public int getId() {
         return id;
@@ -91,6 +111,11 @@ public class Players {
         this.teamFK = teamFK;
     }
 
+    /**
+     * Insere um novo jogador no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void insert() throws SQLException {
         String sql = "INSERT INTO Players (name, img, dateBirth, height, position, country, teamFK) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -119,6 +144,11 @@ public class Players {
         }
     }
 
+    /**
+     * Atualiza um jogador existente no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void update() throws SQLException {
         String sql = "UPDATE Players SET name = ?, img = ?, dateBirth = ?, height = ?, position = ?, country = ?, teamFK = ? WHERE id = ?";
 
@@ -144,17 +174,22 @@ public class Players {
         }
     }
 
+    /**
+     * Deleta um jogador do banco de dados pelo id.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void delete() throws SQLException {
         String sql = "DELETE FROM Players WHERE id = ?";
 
         try (PreparedStatement statement = con.prepareStatement(sql)) {
-            statement.setString(1, name);
+            statement.setInt(1, id);
 
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("PLayer deleted successfully.");
+                System.out.println("Player deleted successfully.");
             } else {
-                System.out.println("No Player found with the name: " + name);
+                System.out.println("No Player found with ID: " + id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,11 +197,16 @@ public class Players {
         }
     }
 
+    /**
+     * Imprime todos os jogadores armazenados no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public static void printAll() throws SQLException {
         Connection con = DatabaseConfiguration.getConnection();
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM Players";
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Players");
+        ResultSet rs = stmt.executeQuery(sql);
 
         System.out.println("ID\tName\tImg\tDateBirth\tHeight\tPosition\tCountry\tTeamFK");
         while (rs.next()) {

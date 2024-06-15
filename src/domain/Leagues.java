@@ -4,6 +4,11 @@ import service.DatabaseConfiguration;
 
 import java.sql.*;
 
+/**
+ * A classe Leagues representa uma liga com atributos como id, nome, imagem e país.
+ * Esta classe fornece métodos para inserir, atualizar, deletar e imprimir todas as ligas
+ * armazenadas no banco de dados.
+ */
 public class Leagues {
     private int id;
     private String name;
@@ -12,13 +17,25 @@ public class Leagues {
 
     Connection con = DatabaseConfiguration.getConnection();
 
+    /**
+     * Construtor padrão da classe Leagues.
+     */
     public Leagues() {}
 
+    /**
+     * Construtor da classe Leagues com parâmetros.
+     *
+     * @param name o nome da liga
+     * @param img o caminho da imagem da liga
+     * @param country o país da liga
+     */
     public Leagues(String name, String img, String country) {
         this.name = name;
         this.img = img;
         this.country = country;
     }
+
+    // Métodos getter e setter para os atributos da liga
 
     public int getId() {
         return id;
@@ -32,7 +49,7 @@ public class Leagues {
         return name;
     }
 
-    public void setNome() {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -40,7 +57,7 @@ public class Leagues {
         return img;
     }
 
-    public void setLogo() {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -48,10 +65,15 @@ public class Leagues {
         return country;
     }
 
-    public void setPais() {
+    public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * Insere uma nova liga no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void insert() throws SQLException {
         String sql = "INSERT INTO Leagues (name, img, country) VALUES (?, ?, ?)";
 
@@ -76,6 +98,11 @@ public class Leagues {
         }
     }
 
+    /**
+     * Atualiza uma liga existente no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void update() throws SQLException {
         String sql = "UPDATE Leagues SET name = ?, img = ?, country = ? WHERE id = ?";
 
@@ -97,6 +124,11 @@ public class Leagues {
         }
     }
 
+    /**
+     * Deleta uma liga do banco de dados pelo nome.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public void delete() throws SQLException {
         String sql = "DELETE FROM Leagues WHERE name = ?";
 
@@ -115,11 +147,16 @@ public class Leagues {
         }
     }
 
+    /**
+     * Imprime todas as ligas armazenadas no banco de dados.
+     *
+     * @throws SQLException se ocorrer um erro ao acessar o banco de dados
+     */
     public static void printAll() throws SQLException {
         Connection con = DatabaseConfiguration.getConnection();
         Statement stmt = con.createStatement();
         String sql = "SELECT * FROM Leagues";
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Leagues");
+        ResultSet rs = stmt.executeQuery(sql);
 
         System.out.println("ID\tName\tImg\tCountry");
         while (rs.next()) {
