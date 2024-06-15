@@ -10,6 +10,11 @@ Desenvolvido no primeiro semestre de 2024 - BSI023
 - João Victor Fernandes Souza
 - Kaio Aguilar Herrera
 
+### Atenção!
+Por algum motivo, ao rodar o arquivo "compileAndRun" pela primeira
+vez, irá aparecer no terminal "The system cannot find the file specified.",
+porém o programa e suas funções funcionam normalmente.
+
 ### O que faz cada arquivo?
 - Main.java: classe principal, responsável por criar os objetos que
 inicializarão o servidor, preencherão as tabelas e invocarão a
