@@ -5,7 +5,12 @@ Banco de Dados: Hypersonic SQL
 GUI: Swing
 Desenvolvido no primeiro semestre de 2024 - BSI023
 
-# O que faz cada arquivo?
+### MEMBROS
+- Eduardo Rodrigues Teixeira
+- João
+- Kaio
+
+### O que faz cada arquivo?
 - Main.java: classe principal, responsável por criar os objetos que
 inicializarão o servidor, preencherão as tabelas e invocarão a
 janela de seleção.
