@@ -17,6 +17,7 @@ public class DeleteForm<T> extends JFrame {
     public DeleteForm(Class<T> clazz) {
         this.clazz = clazz;
         initialize();
+        setResizable(false);
     }
 
     private void initialize() {

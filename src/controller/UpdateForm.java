@@ -26,6 +26,7 @@ public class UpdateForm<T> extends JFrame {
         this.comboBoxMap = new HashMap<>();
         this.imageButtonMap = new HashMap<>();
         initializeSelect();
+        setResizable(false);
     }
 
     private void initializeSelect() {
