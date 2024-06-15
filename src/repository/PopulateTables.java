@@ -53,6 +53,8 @@ public class PopulateTables {
                 "'res/Teams/nike.jpg', " + leagueIdMap.get("Custom") + ")");
         stmt.executeUpdate("INSERT INTO Teams(name, img, leagueFK) VALUES ('Adidas', " +
                 "'res/Teams/adidas.jpg', " + leagueIdMap.get("Custom") + ")");
+        stmt.executeUpdate("INSERT INTO Teams(name, img, leagueFK) VALUES ('Milan', " +
+                "'res/Teams/mil.png', " + leagueIdMap.get("Custom") + ")");
 
         System.out.println("Dados inseridos na tabela Times com sucesso!");
 
@@ -117,6 +119,19 @@ public class PopulateTables {
         insertPlayer(stmt, "Luis Suarez", "suarez.png", "1987-01-24", "1.82", "Atacante", "Uruguai", teamIdMap.get("Adidas"));
         insertPlayer(stmt, "Mesut Ozil", "ozil.png", "1988-10-15", "1.80", "Meio-campista", "Alemanha", teamIdMap.get("Adidas"));
         insertPlayer(stmt, "Ivan Rakitic", "rakitic.png", "1988-03-10", "1.84", "Meio-campista", "Croácia", teamIdMap.get("Adidas"));
+
+        // Insere jogadores para Milan
+        insertPlayer(stmt, "Gianluigi Donnarumma", "donnarumma.png", "1999-02-25", "1.96", "Goleiro", "Itália", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Zlatan Ibrahimovic", "ibrahimovic.png", "1981-10-03", "1.95", "Atacante", "Suécia", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Franck Kessie", "kessie.png", "1996-12-19", "1.83", "Meio-campista", "Costa do Marfim", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Theo Hernandez", "theo_hernandez.png", "1997-10-06", "1.84", "Lateral-esquerdo", "França", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Simon Kjaer", "kjaer.png", "1989-03-26", "1.90", "Zagueiro", "Dinamarca", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Hakan Calhanoglu", "calhanoglu.png", "1994-02-08", "1.78", "Meio-campista", "Turquia", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Ismael Bennacer", "bennacer.png", "1997-12-01", "1.75", "Meio-campista", "Argélia", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Alessio Romagnoli", "romagnoli.png", "1995-01-12", "1.85", "Zagueiro", "Itália", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Rafael Leao", "leao.png", "1999-06-10", "1.88", "Atacante", "Portugal", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Ante Rebic", "rebic.png", "1993-09-21", "1.85", "Atacante", "Croácia", teamIdMap.get("Milan"));
+        insertPlayer(stmt, "Davide Calabria", "calabria.png", "1996-12-06", "1.77", "Lateral-direito", "Itália", teamIdMap.get("Milan"));
 
         System.out.println("Dados inseridos na tabela Players com sucesso!");
 
