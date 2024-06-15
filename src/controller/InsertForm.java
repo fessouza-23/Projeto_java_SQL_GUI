@@ -23,6 +23,7 @@ public class InsertForm<T> extends JFrame {
         this.comboBoxMap = new HashMap<>();
         this.imageButtonMap = new HashMap<>();
         initialize();
+        setResizable(false);
     }
 
     private void initialize() {
