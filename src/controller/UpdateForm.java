@@ -1,5 +1,4 @@
 package controller;
-
 import service.DatabaseConfiguration;
 
 import javax.swing.*;
@@ -93,7 +92,7 @@ public class UpdateForm<T> extends JFrame {
         JButton submitButton = new JButton("Update");
         submitButton.addActionListener(e -> handleSubmit());
 
-        add(new JLabel()); // Espaço vazio para alinhamento
+        add(new JLabel());
         add(submitButton);
 
         pack();
@@ -128,7 +127,7 @@ public class UpdateForm<T> extends JFrame {
      */
     private void addTextField(Field field, JLabel label) {
         JTextField textField = new JTextField(20);
-        textFieldMap.put(field.getName(), textField); // Usa o nome do campo como chave
+        textFieldMap.put(field.getName(), textField); // Use o campo do nome como chave
         add(label);
         add(textField);
     }
@@ -256,10 +255,8 @@ public class UpdateForm<T> extends JFrame {
         ComboBoxItem selectedItem = (ComboBoxItem) selectComboBox.getSelectedItem();
         if (selectedItem != null) {
             try {
-                // Instancia currentInstance se necessário
                 currentInstance = clazz.getDeclaredConstructor().newInstance();
 
-                // Recupera dados da database e preenche a currentInstance
                 Connection con = DatabaseConfiguration.getConnection();
                 String sql = "SELECT * FROM " + clazz.getSimpleName() + " WHERE id = ?";
                 try (PreparedStatement statement = con.prepareStatement(sql)) {
@@ -279,16 +276,62 @@ public class UpdateForm<T> extends JFrame {
                                     field.set(currentInstance, value); // Coloca o valor na currentInstance
                                 }
                             }
+                            Field idField = clazz.getDeclaredField("id");
+                            idField.setAccessible(true);
+                            idField.set(currentInstance, selectedItem.getId());
                         }
                     }
                 }
 
                 // Inicializa a atualização do form com os dados de currentInstance
                 initializeUpdate();
+
+                populateFormFields();
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error selecting " + clazz.getSimpleName() + ": " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    private void populateFormFields() {
+        try {
+            for (Field field : clazz.getDeclaredFields()) {
+                String fieldName = field.getName();
+
+                if (fieldName.equals("id") || fieldName.equals("con")) {
+                    continue;
+                }
+
+                field.setAccessible(true);
+                Object value = field.get(currentInstance);
+
+                if (isForeignKeyField(field)) {
+                    JComboBox<Object> comboBox = comboBoxMap.get(fieldName);
+                    if (comboBox != null && value != null) {
+                        for (int i = 0; i < comboBox.getItemCount(); i++) {
+                            ComboBoxItem item = (ComboBoxItem) comboBox.getItemAt(i);
+                            if (item.getId() == (int) value) {
+                                comboBox.setSelectedItem(item);
+                                break;
+                            }
+                        }
+                    }
+                } else if (isImageField(field)) {
+                    JButton imageButton = imageButtonMap.get(fieldName);
+                    if (imageButton != null) {
+                        imageButton.setText(value.toString());
+                        imageButton.setActionCommand(value.toString());
+                    }
+                } else {
+                    JTextField textField = textFieldMap.get(fieldName);
+                    if (textField != null) {
+                        textField.setText(value.toString());
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
@@ -320,9 +363,17 @@ public class UpdateForm<T> extends JFrame {
                             field.set(currentInstance, value);
                         } else if (field.getType() == int.class) {
                             field.set(currentInstance, Integer.parseInt(value));
-                        } // Lida com outros tipos de campos se necessário
+                        }
                     }
                 }
+            }
+
+            // Ensure the ID is set correctly in currentInstance
+            ComboBoxItem selectedItem = (ComboBoxItem) selectComboBox.getSelectedItem();
+            if (selectedItem != null) {
+                Field idField = clazz.getDeclaredField("id");
+                idField.setAccessible(true);
+                idField.set(currentInstance, selectedItem.getId());
             }
 
             // Chama o método update na currentInstance para atualizar a database
