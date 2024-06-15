@@ -44,6 +44,7 @@ public class PlayerSelection extends JFrame {
         populatePlayerSelectionBox();
 
         pack();
+        setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
     }
