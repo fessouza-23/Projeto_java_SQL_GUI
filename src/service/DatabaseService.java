@@ -2,6 +2,7 @@ package service;
 
 import repository.ConnectDB;
 import repository.CreateTables;
+import repository.PopulateTables;
 
 import java.sql.SQLException;
 
@@ -31,6 +32,10 @@ public class DatabaseService {
         try {
             connectDB.connect(); // Conecta ao banco de dados
             createTables.create(); // Cria as tabelas no banco de dados
+
+            // Popula as tabelas com dados iniciais
+            PopulateTables populateTables = new PopulateTables();
+            populateTables.insert();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -16,10 +16,6 @@ public class Main {
             DatabaseService databaseService = new DatabaseService();
             databaseService.initialize();
 
-            // Popula as tabelas com dados iniciais
-            PopulateTables populateTables = new PopulateTables();
-            populateTables.insert();
-
             // Inicia a interface gráfica de seleção
             SwingUtilities.invokeLater(() -> {
                 new Selection();
