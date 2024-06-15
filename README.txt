@@ -7,8 +7,8 @@ Desenvolvido no primeiro semestre de 2024 - BSI023
 
 ### MEMBROS
 - Eduardo Rodrigues Teixeira
-- João
-- Kaio
+- João Victor Fernandes Souza
+- Kaio Aguilar Herrera
 
 ### O que faz cada arquivo?
 - Main.java: classe principal, responsável por criar os objetos que
