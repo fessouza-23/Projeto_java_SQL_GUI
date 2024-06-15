@@ -6,9 +6,13 @@ import controller.UpdateForm;
 import domain.Players;
 import service.DatabaseConfiguration;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,6 +32,7 @@ public class PlayerSelection extends JFrame {
     private List<Integer> playerIds;
     private int selectedTeamId;
     private static final String BASE_DIR = System.getProperty("user.dir");
+    private static final String ROOT_DIR = "./";
     private static final String PLAYER_IMAGE_DIR = BASE_DIR + File.separator + "res" + File.separator + "Players" + File.separator;
     private static final int IMAGE_SIZE = 100;
 
@@ -215,11 +220,22 @@ public class PlayerSelection extends JFrame {
                         playerCountryLabel.setText("Country: " + playerCountry);
 
                         if (imgPath != null) {
-                            String fullImgPath = PLAYER_IMAGE_DIR + imgPath;
-                            ImageIcon playerImageIcon = new ImageIcon(fullImgPath);
-                            Image scaledImage = playerImageIcon.getImage().getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
-                            playerImageIcon.setImage(scaledImage);
-                            playerImageLabel.setIcon(playerImageIcon);
+                            String fullImgPath = ROOT_DIR + imgPath;
+                            System.out.println("Full Image Path: " + fullImgPath); // Debugging line
+                            try {
+                                InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fullImgPath);
+                                if (inputStream != null) {
+                                    BufferedImage bufferedImage = ImageIO.read(inputStream);
+                                    ImageIcon playerImageIcon = new ImageIcon(bufferedImage);
+                                    Image scaledImage = playerImageIcon.getImage().getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, Image.SCALE_SMOOTH);
+                                    playerImageIcon.setImage(scaledImage);
+                                    playerImageLabel.setIcon(playerImageIcon);
+                                } else {
+                                    System.out.println("Image not found: " + fullImgPath);
+                                }
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
                         } else {
                             playerImageLabel.setIcon(null);
                         }
